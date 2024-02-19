@@ -1,3 +1,4 @@
+import 'package:brain_pulse/Features/ChatBot/pages/new_conversation.dart';
 import 'package:brain_pulse/Features/Intro/cubit/introduction_page_index_cubit.dart';
 import 'package:brain_pulse/Features/Mental_Health_Assessement/bloc/health_goal_bloc.dart';
 import 'package:brain_pulse/Features/Mental_Health_Assessement/cubit/age_page_controller_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:brain_pulse/Global/main_button.dart';
 import 'package:brain_pulse/Global/my_appbar.dart';
 import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
+import 'package:brain_pulse/Transition/fade_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -101,7 +103,11 @@ class AssesssementPage extends StatelessWidget {
             color: AppColors.marronSecondary,
             onPressed: () {
               final assessementPageCubit = context.read<AssessementPageCubit>();
-              assessementPageCubit.setPage(assessementPageCubit.state + 1);
+              assessementPageCubit.state == 3
+                  ? Navigator.of(context)
+                      .push(FadePageRoute(child: const NewConversationChatBot()))
+                  : assessementPageCubit
+                      .setPage(assessementPageCubit.state + 1);
             },
           ),
           const Gap(30)

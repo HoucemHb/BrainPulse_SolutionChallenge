@@ -3,6 +3,19 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final ThemeData appTheme = ThemeData(
+  brightness: Brightness.light,
+
+  fontFamily: GoogleFonts.urbanist().fontFamily,
+
+  textTheme: TextTheme(
+      labelLarge: AppFonts.mainButtonsFont,
+      displayLarge: AppFonts.headLine,
+      displayMedium: AppFonts.semiBold),
+
+  // Define other theme properties as needed
+);
+
 abstract class AppFonts {
   static final headLine = GoogleFonts.urbanist(
     color: Colors.white,
@@ -13,6 +26,11 @@ abstract class AppFonts {
   static final mainButtonsFont = GoogleFonts.urbanist(
       fontSize: 18,
       fontWeight: FontWeight.w900,
+      color: Colors.white,
+      letterSpacing: -0.004);
+  static final semiBold = GoogleFonts.urbanist(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
       color: Colors.white,
       letterSpacing: -0.004);
 }

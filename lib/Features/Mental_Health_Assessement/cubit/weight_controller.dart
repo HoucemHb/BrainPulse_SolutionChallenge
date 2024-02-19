@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 class WeightController extends Cubit<double> {
   final PageController pageController = PageController(viewportFraction: 1/23,initialPage: 300);
 
-  WeightController() : super(300);
+  WeightController() : super(60);
 
   void setPage(double index) {
     // pageController.animateToPage(
