@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:brain_pulse/Features/ChatBot/pages/new_conversation.dart';
 import 'package:brain_pulse/Features/Courses/meditation_player.dart';
 import 'package:brain_pulse/Features/Intro/get_started.dart';
 import 'package:brain_pulse/Features/Intro/step1_intro.dart';
@@ -24,7 +25,7 @@ class BrainPulseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, screenType) {
       return const MaterialApp(
-        home: LoadingPage(),
+        home: NewConversationChatBot(),
       );
     });
   }

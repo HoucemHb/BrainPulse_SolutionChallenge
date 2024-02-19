@@ -55,9 +55,7 @@ class AgeSelectionPage extends StatelessWidget {
                                 clipBehavior: Clip.antiAlias,
                                 decoration: BoxDecoration(
                                   color: index ==
-                                          context
-                                              .read<AgePageControolerCubit>()
-                                              .state
+                                          state
                                       ? const Color(0xFF9BB067)
                                       : null,
                                   borderRadius: BorderRadius.circular(1234),
@@ -88,7 +86,8 @@ class AgeSelectionPage extends StatelessWidget {
                             );
                           }))),
                 ),
-              )
+              ),
+              const Gap(20)
             ],
           ),
         );

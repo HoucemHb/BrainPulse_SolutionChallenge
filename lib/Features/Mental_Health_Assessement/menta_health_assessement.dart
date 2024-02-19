@@ -6,6 +6,8 @@ import 'package:brain_pulse/Features/Mental_Health_Assessement/cubit/gender_sele
 import 'package:brain_pulse/Features/Mental_Health_Assessement/pages/age_page.dart';
 import 'package:brain_pulse/Features/Mental_Health_Assessement/pages/gender_selection_page.dart';
 import 'package:brain_pulse/Features/Mental_Health_Assessement/pages/health_goal_page.dart';
+import 'package:brain_pulse/Features/Mental_Health_Assessement/pages/weight_page.dart';
+import 'package:brain_pulse/Global/main_button.dart';
 import 'package:brain_pulse/Global/my_appbar.dart';
 import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
@@ -15,17 +17,18 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+const List<Widget> pages = [
+  HealthGoalPage(),
+  GenderPage(),
+  AgeSelectionPage(),
+  WeightPage(),
+];
+
 class MentalHealthAssessement extends StatelessWidget {
   const MentalHealthAssessement({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages = [
-      const HealthGoalPage(),
-      const GenderPage(),
-      const AgeSelectionPage(),
-      const HealthGoalPage(),
-    ];
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -90,30 +93,16 @@ class AssesssementPage extends StatelessWidget {
               ),
             ),
           ),
-          const Gap(40),
+          const Gap(48),
           Expanded(child: content),
-          TextButton(
+          MainButton(
+            text: "Continue",
+            iconPath: "assets/images/arrow_forword.png",
+            color: AppColors.marronSecondary,
             onPressed: () {
-              //TODO:
-              print("Continue pressed");
               final assessementPageCubit = context.read<AssessementPageCubit>();
               assessementPageCubit.setPage(assessementPageCubit.state + 1);
             },
-            child: Container(
-              height: 56,
-              width: 90.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: AppColors.marronSecondary),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Continue", style: AppFonts.mainButtonsFont),
-                  const Gap(16),
-                  Image.asset("assets/images/arrow_forword.png")
-                ],
-              ),
-            ),
           ),
           const Gap(30)
         ],
