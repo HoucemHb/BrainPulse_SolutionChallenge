@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:brain_pulse/Features/Courses/bloc/audio_player_bloc.dart';
 import 'package:brain_pulse/Global/my_appbar.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
@@ -30,20 +32,11 @@ class MeditationPlayerUI extends StatefulWidget {
 }
 
 class _MeditationPlayerUIState extends State<MeditationPlayerUI> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    _init();
-    // Now it's safe to play audio
-    // For example, you can load an audio source here
-    // _audioPlayer.setUrl('https://example.com/your_audio_file.mp3');
-
-    super.initState();
-  }
-
-  Future<void> _init() async {
-    // Inform the operating system of our app's audio attributes etc.
-    // We pick a reasonable default for an app that plays speech.
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
   }
 
   @override
@@ -62,7 +55,9 @@ class _MeditationPlayerUIState extends State<MeditationPlayerUI> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const MyAppBar(title: "Courses",),
+                const MyAppBar(
+                  title: "Courses",
+                ),
                 Text(
                   "Mindfulness\nMeditation Intro",
                   style: GoogleFonts.urbanist(
@@ -74,26 +69,63 @@ class _MeditationPlayerUIState extends State<MeditationPlayerUI> {
                 ),
                 BlocBuilder<AudioPlayerBloc, AudioPlayerState>(
                   builder: (context, state) {
+                    final position = context.read<AudioPlayerBloc>().position ??
+                        Duration.zero;
+                    final totalDuration =
+                        context.read<AudioPlayerBloc>().totalDuration ??
+                            Duration.zero;
+                    if (totalDuration != Duration.zero &&
+                        totalDuration == position) {
+                      context.read<AudioPlayerBloc>().add(StopAudioEvent());
+                      // print('stopppeeddd');
+                    }
+                    print("new state : $state");
                     return Column(
                       children: [
                         CircularPercentIndicator(
                           radius: 90,
                           lineWidth: 15.0,
-                          percent: 0.4,
-                          center: IconButton(
-                            iconSize: 50,
-                            color: Colors.white,
-                            onPressed: () {
-                              //TODO:on pause/play pressed
-                            },
-                            icon: const Icon(Icons.pause_rounded),
-                          ),
+                          percent: totalDuration == Duration.zero
+                              ? 0
+                              : min(
+                                  1,
+                                  position.inMilliseconds /
+                                      totalDuration.inMilliseconds),
+                          center: state is AudioPlayerLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 5,
+                                )
+                              : IconButton(
+                                  iconSize: 50,
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    final audioPlayerCubit =
+                                        context.read<AudioPlayerBloc>();
+
+                                    state is AudioPlayerInitial ||
+                                            state is AudioPlayerStopped
+                                        ? audioPlayerCubit.add(PlayAudioEvent())
+                                        : state is AudioPlayerPaused
+                                            ? audioPlayerCubit
+                                                .add(ResumeAudioEvent())
+                                            : state is AudioPlayerPlaying
+                                                ? audioPlayerCubit
+                                                    .add(PauseAudioEvent())
+                                                : audioPlayerCubit
+                                                    .add(RestartAudioEvent());
+                                    //TODO:on pause/play pressed
+                                  },
+                                  icon: Icon(state is AudioPlayerPlaying
+                                      ? Icons.pause_rounded
+                                      : Icons.play_arrow),
+                                ),
                           backgroundColor: Colors.white.withOpacity(0.2),
                           progressColor: Colors.white,
                         ),
                         const Gap(30),
                         Text(
-                          "05:55",
+                          formatDuration(position),
                           style: GoogleFonts.urbanist(
                               fontSize: 36,
                               fontWeight: FontWeight.w900,
@@ -189,4 +221,3 @@ class _MeditationPlayerUIState extends State<MeditationPlayerUI> {
     );
   }
 }
-

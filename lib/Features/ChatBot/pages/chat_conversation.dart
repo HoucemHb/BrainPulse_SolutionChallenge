@@ -25,7 +25,8 @@ class ChatScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state is MessagesLoaded) {
                   return Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 25),
                     child: ListView.builder(
                       itemCount: state.messages.length,
                       itemBuilder: (context, index) {
@@ -74,12 +75,12 @@ class ChatScreen extends StatelessWidget {
                               hintStyle: Theme.of(context)
                                   .textTheme
                                   .displayMedium!
-                                  .copyWith(fontSize: 14,color: Colors.white),
+                                  .copyWith(fontSize: 14, color: Colors.white),
                               hintText: "Type to start chatting..."),
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
-                              .copyWith(fontSize: 14,color: Colors.white),
+                              .copyWith(fontSize: 14, color: Colors.white),
                         ),
                       ),
                       Image.asset("assets/images/camera.png")
@@ -90,10 +91,17 @@ class ChatScreen extends StatelessWidget {
                     onPressed: () {
                       context.read<MessageBloc>().add(SendMessage(
                           message: Message(
-                             
                               text: _controller.text,
                               timestamp: DateTime.now(),
                               isSentByUser: true)));
+                      FocusScope.of(context).unfocus();
+                      _controller.clear();
+
+                      context.read<MessageBloc>().add(SendMessage(
+                          message: Message(
+                              text: "belehi bara ******",
+                              timestamp: DateTime.now(),
+                              isSentByUser: false)));
                     },
                     backgroundColor: AppColors.green,
                     icon: Image.asset(

@@ -31,7 +31,7 @@ class BrainPulseApp extends StatelessWidget {
         theme: appTheme,
         home: BlocProvider(
           create: (context) => MessageBloc(),
-          child: const LoadingPage(),
+          child:  const LoadingPage(),
         ),
       );
     });

@@ -11,55 +11,60 @@ class MessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isSentByUser = message.isSentByUser;
-    return Directionality(
-      textDirection:
-          message.isSentByUser ? TextDirection.rtl : TextDirection.ltr,
-      child: ClipPath(
-        clipper: isSentByUser?_MessageClipper(): _ChatMessageClipper(),
-        child: Container(
-          color: message.isSentByUser
-              ? AppColors.marronSecondary
-              : AppColors.marronSecondary2,
-
-          padding: const EdgeInsets.only(bottom: 20, top: 8, left: 8, right: 8),
-          // padding: const EdgeInsets.all(10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              MyIconButton(
-                  backgroundColor: AppColors.marron4,
-                  icon: Image.asset(
-                    message.isSentByUser
-                        ? "assets/images/user.png"
-                        : "assets/images/menu.png",
-                    height: 24,
-                    width: 24,
-                    color: message.isSentByUser
-                        ? const Color(0xffC0A091)
-                        : AppColors.marronSecondary,
-                  ),
-                  onPressed: () {
-                    //TODO
-                  }),
-              Directionality(
-                textDirection: TextDirection.ltr,
-                child: Expanded(
-                  child: Text(
-                    
-                    message.text,
-                    
-                    softWrap: true,
-                    overflow: TextOverflow.visible,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontSize: 14,height: 1.4,color: Colors.white),
-                  ),
-                ),
-              )
-            ],
+    return Padding(
+      padding: const EdgeInsets.only(top:8.0),
+      child: Directionality(
+        textDirection: isSentByUser ? TextDirection.rtl : TextDirection.ltr,
+        child: Align(
+          alignment: isSentByUser ? Alignment.centerRight : Alignment.centerLeft,
+          child: ClipPath(
+            clipper: isSentByUser ? _MessageClipper() : _ChatMessageClipper(),
+            child: Container(
+              color: isSentByUser
+                  ? AppColors.marronSecondary
+                  : AppColors.marronSecondary2,
+      
+              padding:
+                  const EdgeInsets.only(bottom: 20, top: 8, left: 8, right: 8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MyIconButton(
+                      backgroundColor: AppColors.marron4,
+                      icon: Image.asset(
+                        isSentByUser
+                            ? "assets/images/user.png"
+                            : "assets/images/menu.png",
+                        height: 24,
+                        width: 24,
+                        color: isSentByUser
+                            ? const Color(0xffC0A091)
+                            : AppColors.marronSecondary,
+                      ),
+                      onPressed: () {
+                        //TODO
+                      }),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Flexible(
+                      child: Text(
+                        message.text,
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(
+                                fontSize: 14, height: 1.4, color: Colors.white),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              // decoration: const BoxDecoration(color: Colors.red),
+            ),
           ),
-          // decoration: const BoxDecoration(color: Colors.red),
         ),
       ),
     );

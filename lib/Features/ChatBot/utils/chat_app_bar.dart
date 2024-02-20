@@ -22,7 +22,9 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             MyIconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
               backgroundColor: AppColors.marron,
               icon: Image.asset(
                 "assets/images/back_arrow.png",

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'audio_player_bloc.dart';
 
 @immutable
@@ -7,15 +8,16 @@ final class AudioPlayerInitial extends AudioPlayerState {}
 
 class AudioPlayerLoading extends AudioPlayerState {}
 
-class AudioPlayerPlaySuccess extends AudioPlayerState {
 
-  final double percent;
-  final bool isPlaying;
 
-  AudioPlayerPlaySuccess(this.percent, this.isPlaying);
+class AudioPlayerPlaying extends AudioPlayerState {
+  final Duration totalDuration;
+  final Duration position;
+  AudioPlayerPlaying({
+     this.totalDuration=Duration.zero,
+     this.position=Duration.zero,
+  });
 }
-
-class AudioPlayerPlaying extends AudioPlayerState {}
 
 class AudioPlayerPaused extends AudioPlayerState {}
 
