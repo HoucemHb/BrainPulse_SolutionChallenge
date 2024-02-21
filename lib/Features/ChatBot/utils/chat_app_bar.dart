@@ -1,3 +1,4 @@
+import 'package:brain_pulse/Global/popup.dart';
 import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,12 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             Row(
               children: [
                 MyIconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // showDialog(
+                    //     context: context,
+                    //     builder: ((context) => const Popup(
+                    //         content: ExerciceCompletedPopupContent())));
+                  },
                   icon: const Icon(
                     Icons.search,
                     color: AppColors.lightGrey,

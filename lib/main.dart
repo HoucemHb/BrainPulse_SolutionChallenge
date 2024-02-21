@@ -35,7 +35,7 @@ class BrainPulseApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, screenType) {
       return MaterialApp(
         theme: appTheme,
-        home:  const LoadingPage(),
+        home: const LoadingPage(),
       );
     });
   }

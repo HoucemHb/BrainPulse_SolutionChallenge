@@ -9,6 +9,8 @@ final ThemeData appTheme = ThemeData(
   fontFamily: GoogleFonts.urbanist().fontFamily,
 
   textTheme: TextTheme(
+      bodyMedium: AppFonts.medium,
+      labelMedium: AppFonts.bold,
       labelLarge: AppFonts.mainButtonsFont,
       displayLarge: AppFonts.headLine,
       displayMedium: AppFonts.semiBold),
@@ -31,6 +33,16 @@ abstract class AppFonts {
   static final semiBold = GoogleFonts.urbanist(
       fontSize: 18,
       fontWeight: FontWeight.w500,
+      color: Colors.white,
+      letterSpacing: -0.004);
+  static final medium = GoogleFonts.urbanist(
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
+      color: Colors.white,
+      letterSpacing: -0.004);
+  static final bold = GoogleFonts.urbanist(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
       color: Colors.white,
       letterSpacing: -0.004);
 }
