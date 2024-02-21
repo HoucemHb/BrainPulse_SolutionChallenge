@@ -7,10 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 class MyAppBar extends StatelessWidget {
   final String title;
   final Widget? action;
+  final Function() onTap;
   const MyAppBar({
     super.key,
     required this.title,
-    this.action,
+    this.action, required this.onTap,
   });
 
   @override
@@ -18,10 +19,7 @@ class MyAppBar extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () {
-            final assessementPageCubit = context.read<AssessementPageCubit>();
-            assessementPageCubit.setPage(assessementPageCubit.state - 1);
-          },
+          onTap: onTap,
           child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(

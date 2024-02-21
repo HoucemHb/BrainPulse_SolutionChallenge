@@ -12,93 +12,81 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 
-class LoadingPage extends StatelessWidget {
+class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProgressCubit(),
-      child: const Scaffold(
-        body: _Loading1(),
-      ),
-    );
-  }
+  State<LoadingPage> createState() => _LoadingPageState();
 }
 
-class _Loading1 extends StatefulWidget {
-  const _Loading1({
-    super.key,
-  });
-
-  @override
-  State<_Loading1> createState() => _Loading1State();
-}
-
-class _Loading1State extends State<_Loading1> {
+class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
-    context.read<ProgressCubit>().startProgress();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProgressCubit>().startProgress();
+    });
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100.h,
-      width: 100.w,
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/background_blue2.png"),
-              fit: BoxFit.cover)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Loading',
-                style: GoogleFonts.urbanist(
-                  textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    height: 1,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: -0.012,
-                  ),
+    return BlocBuilder<ProgressCubit, int>(
+      builder: (context, state) {
+        if (state == 100) {
+          Future.delayed(
+              const Duration(milliseconds: 500),
+              () => Navigator.of(context)
+                  .push(FadePageRoute(child: const _Loading2())));
+        }
+        return Scaffold(
+          body: Container(
+            height: 100.h,
+            width: 100.w,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/background_blue2.png"),
+                    fit: BoxFit.cover)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Loading',
+                      style: GoogleFonts.urbanist(
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          height: 1,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: -0.012,
+                        ),
+                      ),
+                    ),
+                    Lottie.asset("assets/animated_icons/three_dots2.json")
+                  ],
                 ),
-              ),
-              Lottie.asset("assets/animated_icons/three_dots2.json")
-            ],
+                const Gap(25),
+                Text(
+                  '$state %',
+                  style: GoogleFonts.urbanist(
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      height: 0.04,
+                      letterSpacing: -0.30,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-          const Gap(25),
-          BlocBuilder<ProgressCubit, int>(
-            builder: (context, state) {
-              if (context.read<ProgressCubit>().state == 100) {
-                Future.delayed(
-                    const Duration(milliseconds: 500),
-                    () => Navigator.of(context)
-                        .push(FadePageRoute(child: const _Loading2())));
-              }
-              return Text(
-                '$state %',
-                style: GoogleFonts.urbanist(
-                  textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                    height: 0.04,
-                    letterSpacing: -0.30,
-                  ),
-                ),
-              );
-            },
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }

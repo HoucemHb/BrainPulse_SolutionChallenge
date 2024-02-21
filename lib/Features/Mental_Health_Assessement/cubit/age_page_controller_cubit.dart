@@ -7,6 +7,10 @@ class AgePageControolerCubit extends Cubit<int> {
 
   AgePageControolerCubit() : super(18);
 
+  void init(){
+    pageController.jumpToPage(state);
+  }
+
   void setPage(int index) {
     // pageController.animateToPage(
     //   index,

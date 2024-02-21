@@ -12,7 +12,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
         isSentByUser: true,
         text:
             " Thank you, Doctor Freud. 🙏Your presnence make me happy :) You’re the best AI Therapy chatbot out there. 🏁",
-        timestamp: DateTime.now()),
+        timestamp: DateTime.now().subtract(const Duration(days: 1))),
     Message(
         isSentByUser: false,
         text:
@@ -25,7 +25,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
               isSentByUser: true,
               text:
                   " Thank you, Doctor Freud. 🙏Your presnence make me happy :) You’re the best AI Therapy chatbot out there. 🏁",
-              timestamp: DateTime.now()),
+              timestamp: DateTime.now().subtract(const Duration(days: 1))),
           Message(
               isSentByUser: false,
               text:

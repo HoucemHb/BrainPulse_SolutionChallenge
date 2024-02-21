@@ -15,7 +15,6 @@ class GetStartedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -26,6 +25,7 @@ class GetStartedPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CircleAvatar(
                     radius: 32,
@@ -37,45 +37,51 @@ class GetStartedPage extends StatelessWidget {
                       width: 50,
                     )),
                   ),
-                  const Gap(28),
-                  Text.rich(
-                    TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: "Welcome to the ultimate\n",
-                          style: GoogleFonts.urbanist(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: -0.01)),
-                      TextSpan(
-                          text: "BrainPulse ",
-                          style: GoogleFonts.urbanist(
-                              color: AppColors.marronSecondary,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: -0.01)),
-                      TextSpan(
-                          text: "Platform!",
-                          style: GoogleFonts.urbanist(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: -0.01)),
-                    ]),
-                    textAlign: TextAlign.center,
+                  // const Gap(28),
+                  Column(
+                    children: [
+                      Text.rich(
+                        TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: "Welcome to the ultimate\n",
+                              style: GoogleFonts.urbanist(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: -0.01)),
+                          TextSpan(
+                              text: "BrainPulse ",
+                              style: GoogleFonts.urbanist(
+                                  color: AppColors.marronSecondary,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: -0.01)),
+                          TextSpan(
+                              text: "Platform!",
+                              style: GoogleFonts.urbanist(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: -0.01)),
+                        ]),
+                        textAlign: TextAlign.center,
+                      ),
+                      const Gap(16),
+                      Text(
+                        "Your mindful mental health AI companion for everyone, anywhere 🍃",
+                        style: GoogleFonts.urbanist(
+                            color: const Color(0xffE8DDD9),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: -0.004),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
-                  const Gap(16),
-                  Text(
-                    "Your mindful mental health AI companion for everyone, anywhere 🍃",
-                    style: GoogleFonts.urbanist(
-                        color: const Color(0xffE8DDD9),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: -0.004),
-                    textAlign: TextAlign.center,
-                  ),
-                  const Gap(32),
-                  Image.asset("assets/images/intro_robot.png"),
+
+                  // const Gap(32),
+                  Flexible(child: Image.asset("assets/images/intro_robot.png")),
+                  const Gap(10),
                   TextButton(
                     onPressed: () {
                       //TODO: on pressed
@@ -106,7 +112,7 @@ class GetStartedPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Gap(30),
+                  // const Gap(30),
                   TextButton(
                       onPressed: () {
                         //TODO: onPressed

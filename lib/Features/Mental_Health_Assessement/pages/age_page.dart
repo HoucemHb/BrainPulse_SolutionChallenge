@@ -9,8 +9,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AgeSelectionPage extends StatelessWidget {
+class AgeSelectionPage extends StatefulWidget {
   const AgeSelectionPage({super.key});
+
+  @override
+  State<AgeSelectionPage> createState() => _AgeSelectionPageState();
+}
+
+class _AgeSelectionPageState extends State<AgeSelectionPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AgePageControolerCubit>().init();
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +50,9 @@ class AgeSelectionPage extends StatelessWidget {
                   child: AnimatedBuilder(
                       animation: controller,
                       builder: (context, child) {
-                        print("indeex $index  staatee : ${context.read<AgePageControolerCubit>().state}");
-                        
+                        print(
+                            "indeex $index  staatee : ${context.read<AgePageControolerCubit>().state}");
+
                         double value = 0;
 
                         value = controller.position.haveDimensions

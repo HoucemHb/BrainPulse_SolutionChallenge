@@ -23,7 +23,12 @@ class NewConversationChatBot extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const MyAppBar(title: "Mindful AI Chatbot"),
+                  MyAppBar(
+                    title: "Mindful AI Chatbot",
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                   Image.asset("assets/images/ai_chatbot_robot.png"),
                   Column(
                     children: [
@@ -43,20 +48,23 @@ class NewConversationChatBot extends StatelessWidget {
                       ),
                     ],
                   ),
-                  MainButton(
-                      color: AppColors.orange,
-                      text: "New Conversation",
-                      iconPath: "assets/images/add+.png",
-                      onPressed: () {
-                        //TODO:
-                        print("new converstaion pressed");
-                        Navigator.of(context).push(FadePageRoute(
-                            child: BlocProvider(
-                          create: (context) => MessageBloc(),
-                          child: ChatScreen(),
-                        )));
-                      }),
-                  const Gap(40)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40.0),
+                    child: MainButton(
+                        color: AppColors.orange,
+                        text: "New Conversation",
+                        iconPath: "assets/images/add+.png",
+                        onPressed: () {
+                          //TODO:
+                          print("new converstaion pressed");
+                          Navigator.of(context).push(FadePageRoute(
+                              child: BlocProvider(
+                            create: (context) => MessageBloc(),
+                            child: ChatScreen(),
+                          )));
+                        }),
+                  ),
+                  
                 ]),
           ),
         ));

@@ -217,14 +217,22 @@ class WeightPage extends StatelessWidget {
                                   height: 120,
                                   width: 12,
                                   decoration: BoxDecoration(
-                                      color: AppColors.green,
+                                      color: const Color.fromARGB(
+                                          255, 223, 255, 116),
                                       borderRadius: BorderRadius.circular(1234),
                                       boxShadow: [
                                         BoxShadow(
                                             offset: const Offset(0, 0),
+                                            blurRadius: 100,
+                                            spreadRadius: 70,
+                                            color: AppColors.marron
+                                                .withOpacity(1)),
+                                        BoxShadow(
+                                            offset: const Offset(0, 0),
                                             blurRadius: 20,
-                                            spreadRadius: 4,
-                                            color: AppColors.green
+                                            spreadRadius: 10,
+                                            color: const Color.fromARGB(
+                                                    255, 192, 250, 3)
                                                 .withOpacity(0.3))
                                       ]),
                                 ),

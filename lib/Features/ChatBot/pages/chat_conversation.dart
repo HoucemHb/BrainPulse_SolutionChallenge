@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class ChatScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -23,6 +24,8 @@ class ChatScreen extends StatelessWidget {
           Expanded(
             child: BlocBuilder<MessageBloc, MessageState>(
               builder: (context, state) {
+                int lastDay = 0;
+                bool showMessageDate = false;
                 if (state is MessagesLoaded) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
@@ -31,7 +34,61 @@ class ChatScreen extends StatelessWidget {
                       itemCount: state.messages.length,
                       itemBuilder: (context, index) {
                         final message = state.messages[index];
-                        return MessageWidget(message: message);
+                        if (lastDay == 0 || lastDay != message.timestamp.day) {
+                          lastDay = message.timestamp.day;
+                          showMessageDate = true;
+                        } else {
+                          showMessageDate = false;
+                        }
+                        print("${message.timestamp} -");
+                        int diffrenece =
+                            DateTime.now().difference(message.timestamp).inDays;
+                        print("difference : $diffrenece");
+                        String messageDay;
+                        switch (diffrenece) {
+                          case 0:
+                            messageDay = "Today";
+                            break;
+                          case 1:
+                            messageDay = "Yesterday";
+                            break;
+                          default:
+                            messageDay =
+                                "${message.timestamp.day}/${message.timestamp.month}";
+                        }
+                        print(messageDay);
+                        return showMessageDate
+                            ? Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: 1,
+                                        width: 35.w,
+                                        color: const Color(0xffD6C2B8),
+                                      ),
+                                      Text(
+                                        messageDay,
+                                        style: GoogleFonts.urbanist(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: -0.002,
+                                            color: AppColors.marronSecondary),
+                                      ),
+                                      Container(
+                                        height: 1,
+                                        width: 35.w,
+                                        color: const Color(0xffD6C2B8),
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(5),
+                                  MessageWidget(message: message),
+                                ],
+                              )
+                            : MessageWidget(message: message);
                       },
                     ),
                   );
@@ -96,12 +153,13 @@ class ChatScreen extends StatelessWidget {
                               isSentByUser: true)));
                       FocusScope.of(context).unfocus();
                       _controller.clear();
-
-                      context.read<MessageBloc>().add(SendMessage(
-                          message: Message(
-                              text: "belehi bara ******",
-                              timestamp: DateTime.now(),
-                              isSentByUser: false)));
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        context.read<MessageBloc>().add(SendMessage(
+                            message: Message(
+                                text: "Sorry I'm not available",
+                                timestamp: DateTime.now(),
+                                isSentByUser: false)));
+                      });
                     },
                     backgroundColor: AppColors.green,
                     icon: Image.asset(

@@ -16,8 +16,8 @@ class PageCubit extends Cubit<int> {
             .push(FadePageRoute(child: const MentalHealthAssessement()))
         : pageController.animateToPage(
             index,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.linear,
           );
     emit(index);
   }

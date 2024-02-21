@@ -76,6 +76,13 @@ class AssesssementPage extends StatelessWidget {
       child: Column(
         children: [
           MyAppBar(
+            onTap: () {
+              final assessementPageCubit = context.read<AssessementPageCubit>();
+              assessementPageCubit.state == 0
+                  ? Navigator.of(context).pop()
+                  : assessementPageCubit
+                      .setPage(assessementPageCubit.state - 1);
+            },
             title: "Assessement",
             action: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -104,8 +111,8 @@ class AssesssementPage extends StatelessWidget {
             onPressed: () {
               final assessementPageCubit = context.read<AssessementPageCubit>();
               assessementPageCubit.state == 3
-                  ? Navigator.of(context)
-                      .push(FadePageRoute(child: const NewConversationChatBot()))
+                  ? Navigator.of(context).push(
+                      FadePageRoute(child: const NewConversationChatBot()))
                   : assessementPageCubit
                       .setPage(assessementPageCubit.state + 1);
             },

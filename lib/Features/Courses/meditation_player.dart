@@ -55,7 +55,10 @@ class _MeditationPlayerUIState extends State<MeditationPlayerUI> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const MyAppBar(
+                MyAppBar(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
                   title: "Courses",
                 ),
                 Text(
