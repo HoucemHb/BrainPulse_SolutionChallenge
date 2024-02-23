@@ -33,20 +33,32 @@ class FormValidatorCubit extends Cubit<FormValidatorState> {
     emit(state.copyWith(isErrorID: value));
   }
 
+  void toggleIsSelectedID() {
+    emit(state.copyWith(isSelectedID: !state.isSelectedID));
+  }
+
+  void toggleIsSelectedPassword() {
+    emit(state.copyWith(isSelectedPassword: !state.isSelectedPassword));
+  }
+
   void toggleIsErrorPassword(bool value) {
     emit(state.copyWith(isErrorPassword: value));
   }
 
-  void toggleIsSelectedID(bool value) {
-    emit(state.copyWith(isSelectedID: value));
+  void toggleIsConfirmPasswordMismatch(bool value) {
+    emit(state.copyWith(isConfirmPasswordMismatch: value));
   }
 
-  void toggleIsSelectedPassword(bool value) {
-    emit(state.copyWith(isSelectedPassword: value));
+  void toggleIsConfirmPasswordNull(bool value) {
+    emit(state.copyWith(isConfirmPasswordNull: value));
+  }
+
+  void toggleIsSelectedConfirmPassword() {
+    emit(state.copyWith(
+        isSelectedConfirmPassword: !state.isSelectedConfirmPassword));
   }
 
   void reset() {
     emit(const FormValidatorUpdate());
   }
-  
 }

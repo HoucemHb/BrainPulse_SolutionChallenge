@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:brain_pulse/Features/Authentication/pages/login_page.dart';
+import 'package:brain_pulse/Features/Authentication/pages/signup_page.dart';
 import 'package:brain_pulse/Features/ChatBot/bloc/message_bloc.dart';
 import 'package:brain_pulse/Features/ChatBot/pages/chat_conversation.dart';
 import 'package:brain_pulse/Features/ChatBot/pages/new_conversation.dart';
@@ -36,7 +37,7 @@ class BrainPulseApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, screenType) {
       return MaterialApp(
         theme: appTheme,
-        home: const LoadingPage(),
+        home: const LoginPage(),
       );
     });
   }
