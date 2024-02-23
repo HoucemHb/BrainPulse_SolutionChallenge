@@ -41,7 +41,7 @@ abstract class AppFonts {
       color: Colors.white,
       letterSpacing: -0.004);
   static final bold = GoogleFonts.urbanist(
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: FontWeight.bold,
       color: Colors.white,
       letterSpacing: -0.004);

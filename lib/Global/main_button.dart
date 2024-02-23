@@ -21,8 +21,8 @@ class MainButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Container(
-        height: 56,
-        width: 90.w,
+        height: 60,
+        width: 93.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             color: color),
