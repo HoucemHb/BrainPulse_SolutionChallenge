@@ -1,5 +1,6 @@
 import 'package:brain_pulse/Features/ChatBot/utils/chat_app_bar.dart';
 import 'package:brain_pulse/Global/main_button.dart';
+import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -18,7 +19,7 @@ class Popup extends StatelessWidget {
       child: Container(
         width: 95.w,
         constraints: BoxConstraints(minHeight: 65.h),
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
             color: AppColors.marron,
             borderRadius: BorderRadius.circular(40),
@@ -65,9 +66,7 @@ class ExerciceCompletedPopupContent extends StatelessWidget {
                 const Gap(3),
                 Text(
                   '+8 Freud Score',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
+                  style: AppFonts.bold
                       .copyWith(color: AppColors.lightGrey, fontSize: 16),
                 ),
               ],
@@ -82,9 +81,7 @@ class ExerciceCompletedPopupContent extends StatelessWidget {
                 const Gap(3),
                 Text(
                   '-1 Stress Level',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
+                  style: AppFonts.medium
                       .copyWith(color: AppColors.lightGrey, fontSize: 16),
                 ),
               ],
@@ -95,9 +92,7 @@ class ExerciceCompletedPopupContent extends StatelessWidget {
         Text(
           'Your mental health is improving, congratulations!! 🎉',
           textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
+          style: AppFonts.medium
               .copyWith(color: AppColors.lightGrey, fontSize: 18),
         ),
        const Gap(32),

@@ -5,6 +5,7 @@ import 'package:brain_pulse/Features/Authentication/utils/auth_template.dart';
 import 'package:brain_pulse/Features/ChatBot/pages/new_conversation.dart';
 import 'package:brain_pulse/Features/Mental_Health_Assessement/menta_health_assessement.dart';
 import 'package:brain_pulse/Global/main_button.dart';
+import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:brain_pulse/Transition/slide_transition.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class _LoginPageUIState extends State<_LoginPageUI> {
   late GlobalKey<FormFieldState<String>> _loginFormKey;
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+
   @override
   void initState() {
     _credentialKey = GlobalKey();
@@ -49,6 +51,10 @@ class _LoginPageUIState extends State<_LoginPageUI> {
 
   @override
   Widget build(BuildContext context) {
+    List<FocusNode> loginFocusNodes = [
+      FocusNode(),
+      FocusNode(),
+    ];
     return AuthTemplate(
         title: "Sign In",
         form: Column(
@@ -63,10 +69,12 @@ class _LoginPageUIState extends State<_LoginPageUI> {
                     child: Column(
                       children: [
                         IDCredentialInput(
+                            focusNodes: loginFocusNodes,
                             credentialKey: _credentialKey,
                             controller: _idController),
                         const Gap(15),
                         PasswordInput(
+                            focusNodes: loginFocusNodes,
                             label: "Password",
                             passKey: _passKey,
                             controller: _passController),
@@ -76,9 +84,8 @@ class _LoginPageUIState extends State<_LoginPageUI> {
                             text: "Sign In",
                             iconPath: "assets/images/arrow_forword.png",
                             onPressed: () {
-                              print(_loginFormKey.currentState?.validate());
-                              if (_credentialKey.currentState!.validate() &&
-                                  _passKey.currentState!.validate()) {
+                              _loginFormKey.currentState?.validate();
+                              if (!state.isError()) {
                                 Navigator.of(context).push(
                                   SlidingPageRoute(
                                       child: const MentalHealthAssessement()),
@@ -103,13 +110,11 @@ class _LoginPageUIState extends State<_LoginPageUI> {
                   children: [
                     TextSpan(
                         text: 'Don’t have an account? ',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
+                        style: AppFonts.bold
                             .copyWith(fontSize: 14)),
                     TextSpan(
                       text: 'Sign Up',
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      style: AppFonts.bold.copyWith(
                           fontSize: 14,
                           color: AppColors.orange,
                           decoration: TextDecoration.underline,
@@ -130,7 +135,7 @@ class _LoginPageUIState extends State<_LoginPageUI> {
               },
               child: Text(
                 "Forgot Password",
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                style: AppFonts.bold.copyWith(
                     decorationColor: AppColors.orange,
                     decorationThickness: 3,
                     fontSize: 14,

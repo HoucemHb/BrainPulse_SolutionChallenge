@@ -1,6 +1,7 @@
 import 'package:brain_pulse/Features/Courses/cubit/emoji_controller_cubit.dart';
 import 'package:brain_pulse/Global/main_button.dart';
 import 'package:brain_pulse/Global/my_appbar.dart';
+import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,14 +50,12 @@ class CourseDoneUI extends StatelessWidget {
                 children: [
                   Text(
                     "Course Done!",
-                    style: Theme.of(context).textTheme.displayLarge,
+                    style: AppFonts.headLine,
                   ),
                   const Gap(8),
                   Text(
                     "Congrats! Do ou feel Enlightened now?",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
+                    style: AppFonts.medium
                         .copyWith(fontSize: 16, color: AppColors.lightGrey),
                   ),
                 ],
@@ -67,7 +66,7 @@ class CourseDoneUI extends StatelessWidget {
                 children: [
                   Text(
                     "Rate this course!",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    style: AppFonts.medium.copyWith(
                           fontSize: 16,
                         ),
                   ),

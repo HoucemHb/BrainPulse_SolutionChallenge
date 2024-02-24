@@ -1,5 +1,6 @@
 import 'package:brain_pulse/Features/Authentication/cubit/form_validator_cubit.dart';
 import 'package:brain_pulse/Features/Authentication/pages/signup_page.dart';
+import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,20 +11,23 @@ class IDCredentialInput extends StatelessWidget {
   const IDCredentialInput(
       {super.key,
       required GlobalKey<FormFieldState<String>> credentialKey,
-      required this.controller})
+      required this.controller,
+      required this.focusNodes})
       : _credentialKey = credentialKey;
 
   final GlobalKey<FormFieldState<String>> _credentialKey;
 
   final TextEditingController controller;
+  final List<FocusNode> focusNodes;
 
   @override
   Widget build(BuildContext context) {
     final formCubit = context.read<FormValidatorCubit>();
     return Input(
-      focuseNode: listFieldsFocus[0],
+      textInputAction: TextInputAction.next,
+      focuseNode: focusNodes[0],
       onFieldSubmitted: (p0) {
-        FocusOnNextField(context, listFieldsFocus[0], listFieldsFocus[1]);
+        FocusOnNextField(context, focusNodes[0], focusNodes[1]);
       },
       controller: controller,
       inputKey: _credentialKey,
@@ -35,16 +39,11 @@ class IDCredentialInput extends StatelessWidget {
         TextSpan(children: [
           TextSpan(
               text: "Invalid ID! Please Try Again or Contact ",
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
+              style: AppFonts.bold
                   .copyWith(color: AppColors.orange, fontSize: 11)),
           TextSpan(
               text: "Support For Assistance",
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(fontSize: 11))
+              style: AppFonts.bold.copyWith(fontSize: 11))
         ]),
       ),
       onFocusChange: (value) {
@@ -77,21 +76,29 @@ class PasswordInput extends StatelessWidget {
       required GlobalKey<FormFieldState<String>> passKey,
       required this.label,
       required this.controller,
-      this.onFieldSubmitted})
+      this.onFieldSubmitted,
+      required this.focusNodes})
       : _passKey = passKey;
 
   final GlobalKey<FormFieldState<String>> _passKey;
   final Function(String?)? onFieldSubmitted;
   final TextEditingController controller;
   final String label;
+  final List<FocusNode> focusNodes;
 
   @override
   Widget build(BuildContext context) {
     final formCubit = context.read<FormValidatorCubit>();
 
     return Input(
-      focuseNode: listFieldsFocus[1],
-      onFieldSubmitted: onFieldSubmitted,
+      textInputAction:
+          focusNodes.length == 3 ? TextInputAction.next : TextInputAction.done,
+      focuseNode: focusNodes[1],
+      onFieldSubmitted: focusNodes.length == 3
+          ? (p0) {
+              FocusOnNextField(context, focusNodes[1], focusNodes[2]);
+            }
+          : null,
       controller: controller,
       obscureText: formCubit.state.obscureText,
       inputKey: _passKey,
@@ -102,10 +109,7 @@ class PasswordInput extends StatelessWidget {
       error: Text(
         "Please enter a valid password",
         textAlign: TextAlign.start,
-        style: Theme.of(context)
-            .textTheme
-            .labelMedium!
-            .copyWith(color: AppColors.orange, fontSize: 11),
+        style: AppFonts.bold.copyWith(color: AppColors.orange, fontSize: 11),
       ),
       onFocusChange: (value) {
         formCubit.toggleIsSelectedPassword();
@@ -144,10 +148,12 @@ class ConfirmPasswordInput extends StatelessWidget {
       {super.key,
       required GlobalKey<FormFieldState<String>> confirmPassKey,
       required this.label,
-      required this.controller})
+      required this.controller,
+      required this.focusNodes})
       : _confirmPassKey = confirmPassKey;
 
   final GlobalKey<FormFieldState<String>> _confirmPassKey;
+  final List<FocusNode> focusNodes;
 
   final TextEditingController controller;
   final String label;
@@ -156,7 +162,8 @@ class ConfirmPasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final formCubit = context.read<FormValidatorCubit>();
     return Input(
-      focuseNode: listFieldsFocus[2],
+      textInputAction: TextInputAction.done,
+      focuseNode: focusNodes[2],
       controller: controller,
       obscureText: formCubit.state.obscureText,
       inputKey: _confirmPassKey,
@@ -170,10 +177,7 @@ class ConfirmPasswordInput extends StatelessWidget {
             ? "Password mismatch"
             : "Please enter a valid password",
         textAlign: TextAlign.start,
-        style: Theme.of(context)
-            .textTheme
-            .labelMedium!
-            .copyWith(color: AppColors.orange, fontSize: 11),
+        style: AppFonts.bold.copyWith(color: AppColors.orange, fontSize: 11),
       ),
       onFocusChange: (value) {
         formCubit.toggleIsSelectedConfirmPassword();
@@ -226,6 +230,7 @@ class Input extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focuseNode;
   final Function(String)? onFieldSubmitted;
+  final TextInputAction textInputAction;
   const Input({
     super.key,
     required this.labelText,
@@ -242,6 +247,7 @@ class Input extends StatelessWidget {
     required this.controller,
     required this.focuseNode,
     this.onFieldSubmitted,
+    required this.textInputAction,
   });
 
   @override
@@ -253,8 +259,7 @@ class Input extends StatelessWidget {
         children: [
           Text(
             labelText,
-            style:
-                Theme.of(context).textTheme.labelLarge!.copyWith(fontSize: 14),
+            style: AppFonts.mainButtonsFont.copyWith(fontSize: 14),
           ),
           const Gap(5),
           DecoratedBox(
@@ -287,7 +292,7 @@ class Input extends StatelessWidget {
                         print(controller.text);
                       },
                       controller: controller,
-                      textInputAction: TextInputAction.next,
+                      textInputAction: textInputAction,
                       onFieldSubmitted: onFieldSubmitted,
                       obscureText: obscureText,
                       obscuringCharacter: '*',
@@ -295,9 +300,7 @@ class Input extends StatelessWidget {
                       key: inputKey,
                       decoration: InputDecoration(
                         hintText: hintText,
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
+                        hintStyle: AppFonts.bold
                             .copyWith(color: AppColors.lightGrey, fontSize: 16),
                         contentPadding: const EdgeInsets.all(20),
                         prefixIcon: Image.asset(prefixIcon),
@@ -326,10 +329,7 @@ class Input extends StatelessWidget {
                                 const BorderSide(color: AppColors.orange),
                             borderRadius: BorderRadius.circular(1234)),
                       ),
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(fontSize: 16),
+                      style: AppFonts.bold.copyWith(fontSize: 16),
                       validator: validator),
                 ],
               ),

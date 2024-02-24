@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../Global/main_button.dart';
+import '../../../Theme/font.dart';
 import '../../../Theme/pallette.dart';
 
 class SignUp extends StatelessWidget {
@@ -20,12 +21,6 @@ class SignUp extends StatelessWidget {
     );
   }
 }
-
-final listFieldsFocus = [
-  FocusNode(), //for id
-  FocusNode(), //for pass
-  FocusNode(), //for confirm pass
-];
 
 class SignUpUI extends StatefulWidget {
   const SignUpUI({super.key});
@@ -42,6 +37,7 @@ class _SignUpUIState extends State<SignUpUI> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _confirmPassController = TextEditingController();
+
   @override
   void initState() {
     _credentialKey = GlobalKey();
@@ -53,6 +49,11 @@ class _SignUpUIState extends State<SignUpUI> {
 
   @override
   Widget build(BuildContext context) {
+    List<FocusNode> signupFocusNodes = [
+      FocusNode(),
+      FocusNode(),
+      FocusNode(),
+    ];
     return AuthTemplate(
       title: "Sign Up",
       form: Column(
@@ -67,18 +68,17 @@ class _SignUpUIState extends State<SignUpUI> {
                   child: Column(
                     children: [
                       IDCredentialInput(
+                          focusNodes: signupFocusNodes,
                           credentialKey: _credentialKey,
                           controller: _idController),
                       PasswordInput(
+                        focusNodes: signupFocusNodes,
                         label: "Password",
                         passKey: _passKey,
                         controller: _passController,
-                        onFieldSubmitted: (p0) {
-                          FocusOnNextField(
-                              context, listFieldsFocus[1], listFieldsFocus[2]);
-                        },
                       ),
                       ConfirmPasswordInput(
+                          focusNodes: signupFocusNodes,
                           label: "Password Confirmation",
                           confirmPassKey: _confirmPassKey,
                           controller: _confirmPassController),
@@ -87,8 +87,7 @@ class _SignUpUIState extends State<SignUpUI> {
                           text: "Sign Up",
                           iconPath: "assets/images/arrow_forword.png",
                           onPressed: () {
-                            if (_signUpFormKey.currentState?.validate() ??
-                                false) {}
+                            _signUpFormKey.currentState?.validate();
                           }),
                     ],
                   ),
@@ -99,21 +98,18 @@ class _SignUpUIState extends State<SignUpUI> {
           const Spacer(),
           GestureDetector(
             onTap: () {
-              Navigator.of(context)
-                  .push(SlidingPageRoute(child: const SignUp()));
+              Navigator.of(context).pop();
             },
             child: Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
                       text: 'Already have an account? ',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelMedium!
+                      style: AppFonts.bold
                           .copyWith(fontSize: 14)),
                   TextSpan(
                     text: 'Sign In',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    style: AppFonts.bold.copyWith(
                         fontSize: 14,
                         color: AppColors.orange,
                         decoration: TextDecoration.underline,

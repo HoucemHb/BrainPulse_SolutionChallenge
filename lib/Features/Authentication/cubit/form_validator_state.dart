@@ -25,6 +25,7 @@ abstract class FormValidatorState {
     this.isConfirmPasswordNull = false,
     this.isConfirmPasswordMismatch = false,
   });
+  bool isError();
 
   FormValidatorState copyWith({
     String? ID,
@@ -91,5 +92,12 @@ class FormValidatorUpdate extends FormValidatorState {
       isConfirmPasswordMismatch:
           isConfirmPasswordMismatch ?? this.isConfirmPasswordMismatch,
     );
+  }
+
+  bool isError() {
+    return isErrorID ||
+        isErrorPassword ||
+        isConfirmPasswordMismatch ||
+        isConfirmPasswordNull;
   }
 }

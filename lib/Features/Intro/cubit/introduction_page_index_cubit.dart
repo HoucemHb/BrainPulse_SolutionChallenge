@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:brain_pulse/Features/Authentication/pages/login_page.dart';
 import 'package:brain_pulse/Features/Mental_Health_Assessement/menta_health_assessement.dart';
 import 'package:brain_pulse/Transition/fade_transition.dart';
 import 'package:brain_pulse/Transition/slide_transition.dart';
@@ -13,7 +14,7 @@ class PageCubit extends Cubit<int> {
   void setPage(int index, BuildContext context) {
     index == 5
         ? Navigator.of(context)
-            .push(FadePageRoute(child: const MentalHealthAssessement()))
+            .push(FadePageRoute(child: const LoginPage()))
         : pageController.animateToPage(
             index,
             duration: const Duration(milliseconds: 300),

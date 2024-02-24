@@ -1,4 +1,5 @@
 import 'package:brain_pulse/Features/Authentication/utils/brain_header.dart';
+import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -26,7 +27,7 @@ class AuthTemplate extends StatelessWidget {
             //title
             Text(
               title,
-              style: Theme.of(context).textTheme.displayLarge,
+              style: AppFonts.headLine,
             ),
             const Gap(40),
             Expanded(child: form)

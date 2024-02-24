@@ -1,5 +1,6 @@
 import 'package:brain_pulse/Features/ChatBot/utils/chat_app_bar.dart';
 import 'package:brain_pulse/Models/message_model.dart';
+import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -52,9 +53,7 @@ class MessageWidget extends StatelessWidget {
                         message.text,
                         softWrap: true,
                         overflow: TextOverflow.visible,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
+                        style: AppFonts.semiBold
                             .copyWith(
                                 fontSize: 14, height: 1.4, color: Colors.white),
                       ),

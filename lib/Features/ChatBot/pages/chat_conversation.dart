@@ -2,6 +2,7 @@ import 'package:brain_pulse/Features/ChatBot/bloc/message_bloc.dart';
 import 'package:brain_pulse/Features/ChatBot/utils/chat_app_bar.dart';
 import 'package:brain_pulse/Models/message_model.dart';
 import 'package:brain_pulse/Models/message_widget_model.dart';
+import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -129,14 +130,10 @@ class ChatScreen extends StatelessWidget {
                           controller: _controller,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium!
+                              hintStyle: AppFonts.semiBold
                                   .copyWith(fontSize: 14, color: Colors.white),
                               hintText: "Type to start chatting..."),
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
+                          style: AppFonts.semiBold
                               .copyWith(fontSize: 14, color: Colors.white),
                         ),
                       ),

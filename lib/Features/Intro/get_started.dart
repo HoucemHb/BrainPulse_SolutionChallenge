@@ -1,3 +1,4 @@
+import 'package:brain_pulse/Features/Authentication/pages/login_page.dart';
 import 'package:brain_pulse/Features/Intro/cubit/introduction_page_index_cubit.dart';
 import 'package:brain_pulse/Features/Intro/step1_intro.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
@@ -115,7 +116,7 @@ class GetStartedPage extends StatelessWidget {
                   // const Gap(30),
                   TextButton(
                       onPressed: () {
-                        //TODO: onPressed
+                        Navigator.of(context).push(SlidingPageRoute(child: const LoginPage()));
                       },
                       child: Text.rich(TextSpan(children: [
                         TextSpan(
