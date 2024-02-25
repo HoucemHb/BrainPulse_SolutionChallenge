@@ -14,7 +14,7 @@ class PageCubit extends Cubit<int> {
   void setPage(int index, BuildContext context) {
     index == 5
         ? Navigator.of(context)
-            .push(FadePageRoute(child: const LoginPage()))
+            .push(FadePageRoute(child: const AuthenticationCheck()))
         : pageController.animateToPage(
             index,
             duration: const Duration(milliseconds: 300),

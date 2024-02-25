@@ -1,5 +1,6 @@
 import 'package:brain_pulse/Features/ChatBot/bloc/message_bloc.dart';
 import 'package:brain_pulse/Features/ChatBot/pages/chat_conversation.dart';
+import 'package:brain_pulse/Features/ChatBot/pages/chat_conversation_2.dart';
 import 'package:brain_pulse/Global/main_button.dart';
 import 'package:brain_pulse/Global/my_appbar.dart';
 import 'package:brain_pulse/Theme/font.dart';
@@ -60,7 +61,7 @@ class NewConversationChatBot extends StatelessWidget {
                           Navigator.of(context).push(FadePageRoute(
                               child: BlocProvider(
                             create: (context) => MessageBloc(),
-                            child: ChatScreen(),
+                            child: const ChatBotScreen(),
                           )));
                         }),
                   ),
