@@ -57,82 +57,97 @@ class _SignUpUIState extends State<SignUpUI> {
       FocusNode(),
       FocusNode(),
     ];
-    return AuthTemplate(
-      title: "Sign Up",
-      form: Column(
-        children: [
-          BlocBuilder<FormValidatorCubit, FormValidatorState>(
-            builder: (context, state) {
-              final formCubit = context.read<FormValidatorCubit>();
-              return Form(
-                key: _signUpFormKey,
-                child: SizedBox(
-                  width: 93.w,
-                  child: Column(
-                    children: [
-                      IDCredentialInput(
-                          focusNodes: signupFocusNodes,
-                          credentialKey: _credentialKey,
-                          controller: _idController),
-                      PasswordInput(
-                        focusNodes: signupFocusNodes,
-                        label: "Password",
-                        passKey: _passKey,
-                        controller: _passController,
+    return Stack(
+      children: [
+        AuthTemplate(
+          title: "Sign Up",
+          form: Column(
+            children: [
+              BlocBuilder<FormValidatorCubit, FormValidatorState>(
+                builder: (context, state) {
+                  final formCubit = context.read<FormValidatorCubit>();
+                  return Form(
+                    key: _signUpFormKey,
+                    child: SizedBox(
+                      width: 93.w,
+                      child: Column(
+                        children: [
+                          IDCredentialInput(
+                              focusNodes: signupFocusNodes,
+                              credentialKey: _credentialKey,
+                              controller: _idController),
+                          PasswordInput(
+                            focusNodes: signupFocusNodes,
+                            label: "Password",
+                            passKey: _passKey,
+                            controller: _passController,
+                          ),
+                          ConfirmPasswordInput(
+                              focusNodes: signupFocusNodes,
+                              label: "Password Confirmation",
+                              confirmPassKey: _confirmPassKey,
+                              controller: _confirmPassController),
+                          MainButton(
+                              color: AppColors.marronSecondary,
+                              text: "Sign Up",
+                              iconPath: "assets/images/arrow_forword.png",
+                              onPressed: () {
+                                _signUpFormKey.currentState?.validate();
+                                if (!state.isError()) {
+                                  BlocProvider.of<AuthBloc>(context).add(
+                                    SignUpUser(
+                                      _idController.text.trim(),
+                                      _passController.text.trim(),
+                                    ),
+                                  );
+                                }
+                              }),
+                        ],
                       ),
-                      ConfirmPasswordInput(
-                          focusNodes: signupFocusNodes,
-                          label: "Password Confirmation",
-                          confirmPassKey: _confirmPassKey,
-                          controller: _confirmPassController),
-                      MainButton(
-                          color: AppColors.marronSecondary,
-                          text: "Sign Up",
-                          iconPath: "assets/images/arrow_forword.png",
-                          onPressed: () {
-                            _signUpFormKey.currentState?.validate();
-                            if (!state.isError()) {
-                              BlocProvider.of<AuthBloc>(context).add(
-                                SignUpUser(
-                                  _idController.text.trim(),
-                                  _passController.text.trim(),
-                                ),
-                              );
-                            }
-                          }),
+                    ),
+                  );
+                },
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                          text: 'Already have an account? ',
+                          style: AppFonts.bold.copyWith(fontSize: 14)),
+                      TextSpan(
+                        text: 'Sign In',
+                        style: AppFonts.bold.copyWith(
+                            fontSize: 14,
+                            color: AppColors.orange,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.orange,
+                            decorationThickness: 3),
+                      ),
                     ],
                   ),
+                  textAlign: TextAlign.center,
                 ),
-              );
-            },
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                      text: 'Already have an account? ',
-                      style: AppFonts.bold.copyWith(fontSize: 14)),
-                  TextSpan(
-                    text: 'Sign In',
-                    style: AppFonts.bold.copyWith(
-                        fontSize: 14,
-                        color: AppColors.orange,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColors.orange,
-                        decorationThickness: 3),
-                  ),
-                ],
               ),
-              textAlign: TextAlign.center,
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+        BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return state is AuthLoadingState
+                ? const Center(
+                  child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                )
+                : Container();
+          },
+        )
+      ],
     );
   }
 }
