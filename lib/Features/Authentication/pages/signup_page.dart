@@ -1,6 +1,9 @@
+import 'package:brain_pulse/Features/Authentication/bloc/auth_bloc.dart';
 import 'package:brain_pulse/Features/Authentication/cubit/form_validator_cubit.dart';
+import 'package:brain_pulse/Features/Authentication/pages/login_page.dart';
 import 'package:brain_pulse/Features/Authentication/utils/auth_template.dart';
 import 'package:brain_pulse/Features/Authentication/utils/input.dart';
+import 'package:brain_pulse/Features/Mental_Health_Assessement/menta_health_assessement.dart';
 import 'package:brain_pulse/Transition/slide_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,6 +91,14 @@ class _SignUpUIState extends State<SignUpUI> {
                           iconPath: "assets/images/arrow_forword.png",
                           onPressed: () {
                             _signUpFormKey.currentState?.validate();
+                            if (!state.isError()) {
+                              BlocProvider.of<AuthBloc>(context).add(
+                                SignUpUser(
+                                  _idController.text.trim(),
+                                  _passController.text.trim(),
+                                ),
+                              );
+                            }
                           }),
                     ],
                   ),
@@ -105,8 +116,7 @@ class _SignUpUIState extends State<SignUpUI> {
                 children: [
                   TextSpan(
                       text: 'Already have an account? ',
-                      style: AppFonts.bold
-                          .copyWith(fontSize: 14)),
+                      style: AppFonts.bold.copyWith(fontSize: 14)),
                   TextSpan(
                     text: 'Sign In',
                     style: AppFonts.bold.copyWith(

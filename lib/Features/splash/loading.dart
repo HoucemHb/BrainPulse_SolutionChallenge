@@ -102,42 +102,40 @@ class _Loading2 extends StatelessWidget {
       Navigator.of(context).push(FadePageRoute(child: const _Loading3()));
     });
 
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.all(20),
-          height: 100.h,
-          width: 100.w,
-          color: AppColors.orange,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/brainsvg.png"),
-                const SizedBox(
-                  height: 47,
-                ),
-                Text(
-                  "In the mindset of\nwinter, I found there\nwas within me an\ninvincible summer",
-                  style: GoogleFonts.urbanist(
-                      fontSize: 31.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      letterSpacing: -0.012),
-                ),
-                const SizedBox(
-                  height: 64,
-                ),
-                Text(
-                  "— ALBERT CAMUS",
-                  style: GoogleFonts.urbanist(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 0.1),
-                ),
-              ]),
-        ),
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        height: 100.h,
+        width: 100.w,
+        color: AppColors.orange,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/brainsvg.png"),
+              const SizedBox(
+                height: 47,
+              ),
+              Text(
+                "In the mindset of\nwinter, I found there\nwas within me an\ninvincible summer",
+                style: GoogleFonts.urbanist(
+                    fontSize: 31.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    letterSpacing: -0.012),
+              ),
+              const SizedBox(
+                height: 64,
+              ),
+              Text(
+                "— ALBERT CAMUS",
+                style: GoogleFonts.urbanist(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 0.1),
+              ),
+            ]),
       ),
     );
   }
@@ -153,33 +151,31 @@ class _Loading3 extends StatelessWidget {
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).push(FadePageRoute(child: const GetStartedPage()));
     });
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/looading3_background.png"),
-                  fit: BoxFit.cover)),
-          child: Center(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Fetching Data',
-                  style: GoogleFonts.urbanist(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      height: 1,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: -0.012,
-                    ),
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/looading3_background.png"),
+                fit: BoxFit.cover)),
+        child: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Fetching Data',
+                style: GoogleFonts.urbanist(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    height: 1,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -0.012,
                   ),
                 ),
-                Lottie.asset("assets/animated_icons/three_dots2.json")
-              ],
-            ),
+              ),
+              Lottie.asset("assets/animated_icons/three_dots2.json")
+            ],
           ),
         ),
       ),

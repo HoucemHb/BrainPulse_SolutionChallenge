@@ -41,10 +41,10 @@ class ChatScreen extends StatelessWidget {
                         } else {
                           showMessageDate = false;
                         }
-                        print("${message.timestamp} -");
+
                         int diffrenece =
                             DateTime.now().difference(message.timestamp).inDays;
-                        print("difference : $diffrenece");
+                      
                         String messageDay;
                         switch (diffrenece) {
                           case 0:
@@ -57,7 +57,7 @@ class ChatScreen extends StatelessWidget {
                             messageDay =
                                 "${message.timestamp.day}/${message.timestamp.month}";
                         }
-                        print(messageDay);
+
                         return showMessageDate
                             ? Column(
                                 children: [
@@ -150,13 +150,7 @@ class ChatScreen extends StatelessWidget {
                               isSentByUser: true)));
                       FocusScope.of(context).unfocus();
                       _controller.clear();
-                      Future.delayed(const Duration(milliseconds: 300), () {
-                        context.read<MessageBloc>().add(SendMessage(
-                            message: Message(
-                                text: "Sorry I'm not available",
-                                timestamp: DateTime.now(),
-                                isSentByUser: false)));
-                      });
+                 
                     },
                     backgroundColor: AppColors.green,
                     icon: Image.asset(

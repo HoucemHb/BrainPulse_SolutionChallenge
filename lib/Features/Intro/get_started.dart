@@ -116,7 +116,7 @@ class GetStartedPage extends StatelessWidget {
                   // const Gap(30),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context).push(SlidingPageRoute(child: const LoginPage()));
+                        Navigator.of(context).push(SlidingPageRoute(child: const AuthenticationCheck()));
                       },
                       child: Text.rich(TextSpan(children: [
                         TextSpan(

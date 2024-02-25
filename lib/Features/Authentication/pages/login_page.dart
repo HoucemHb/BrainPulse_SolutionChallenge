@@ -1,3 +1,6 @@
+import 'package:another_flushbar/flushbar.dart';
+
+import 'package:brain_pulse/Features/Authentication/bloc/auth_bloc.dart';
 import 'package:brain_pulse/Features/Authentication/cubit/form_validator_cubit.dart';
 import 'package:brain_pulse/Features/Authentication/pages/reset_password_page.dart';
 import 'package:brain_pulse/Features/Authentication/pages/signup_page.dart';
@@ -8,12 +11,51 @@ import 'package:brain_pulse/Global/main_button.dart';
 import 'package:brain_pulse/Theme/font.dart';
 import 'package:brain_pulse/Theme/pallette.dart';
 import 'package:brain_pulse/Transition/slide_transition.dart';
+import 'package:brain_pulse/Utils/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
 import '../utils/input.dart';
+
+class AuthenticationCheck extends StatelessWidget {
+  const AuthenticationCheck({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        print(state);
+        if (state is AuthenticatedState) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => const MentalHealthAssessement()),
+          );
+        } else if (state is UnauthenticatedState) {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => const AuthenticationCheck()),
+            (route) => false,
+          );
+        } else if (state is AuthFailureState) {
+          showFlushbar(context, state.errorMessage);
+        }
+      },
+      builder: ((context, state) => Stack(
+            children: [
+              const LoginPage(),
+              state is AuthLoadingState
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ))
+                  : Container()
+            ],
+          )),
+    );
+  }
+}
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -86,10 +128,9 @@ class _LoginPageUIState extends State<_LoginPageUI> {
                             onPressed: () {
                               _loginFormKey.currentState?.validate();
                               if (!state.isError()) {
-                                Navigator.of(context).push(
-                                  SlidingPageRoute(
-                                      child: const MentalHealthAssessement()),
-                                );
+                                context.read<AuthBloc>().add(SignInUser(
+                                    _idController.text.trim(),
+                                    _passController.text.trim()));
                               }
                             }),
                       ],
@@ -110,8 +151,7 @@ class _LoginPageUIState extends State<_LoginPageUI> {
                   children: [
                     TextSpan(
                         text: 'Don’t have an account? ',
-                        style: AppFonts.bold
-                            .copyWith(fontSize: 14)),
+                        style: AppFonts.bold.copyWith(fontSize: 14)),
                     TextSpan(
                       text: 'Sign Up',
                       style: AppFonts.bold.copyWith(

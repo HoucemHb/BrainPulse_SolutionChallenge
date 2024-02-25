@@ -93,7 +93,7 @@ class FormValidatorUpdate extends FormValidatorState {
           isConfirmPasswordMismatch ?? this.isConfirmPasswordMismatch,
     );
   }
-
+  @override
   bool isError() {
     return isErrorID ||
         isErrorPassword ||

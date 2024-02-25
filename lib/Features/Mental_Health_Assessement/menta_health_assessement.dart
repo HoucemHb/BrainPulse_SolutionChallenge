@@ -1,3 +1,4 @@
+import 'package:brain_pulse/Features/Authentication/bloc/auth_bloc.dart';
 import 'package:brain_pulse/Features/ChatBot/pages/new_conversation.dart';
 import 'package:brain_pulse/Features/Intro/cubit/introduction_page_index_cubit.dart';
 import 'package:brain_pulse/Features/Mental_Health_Assessement/bloc/health_goal_bloc.dart';
@@ -79,7 +80,7 @@ class AssesssementPage extends StatelessWidget {
             onTap: () {
               final assessementPageCubit = context.read<AssessementPageCubit>();
               assessementPageCubit.state == 0
-                  ? Navigator.of(context).pop()
+                  ? context.read<AuthBloc>().add(SignOut())
                   : assessementPageCubit
                       .setPage(assessementPageCubit.state - 1);
             },

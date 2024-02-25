@@ -57,7 +57,7 @@ class IDCredentialInput extends StatelessWidget {
         }
       },
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || value.isEmpty ||value.length<5) {
           formCubit.toggleIsErrorID(true);
         } else {
           formCubit.toggleIsErrorID(false);
@@ -124,7 +124,7 @@ class PasswordInput extends StatelessWidget {
         }
       },
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || value.isEmpty||value.length<6) {
           formCubit.toggleIsErrorPassword(true);
         } else {
           formCubit.toggleIsErrorPassword(false);
